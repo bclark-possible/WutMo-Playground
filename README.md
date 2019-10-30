@@ -4,10 +4,13 @@
 
 A simple Flask/Redis demo, to showcase how to build a simple service/API from your local machine. We will take this example and build new concepts on to it. 
 
+- [Python 3](https://www.saintlad.com/install-python-3-on-mac/) Use the Homebrew way
+- [Homebrew](https://brew.sh)
 - [Flask](https://flask.palletsprojects.com/en/1.1.x/quickstart/#a-minimal-application)
 - [Redis](https://redislabs.com/get-started-with-redis/)
 - [Virtual Studio Code](https://code.visualstudio.com)
 - [Docker](https://www.docker.com)
+- [Postman](https://www.getpostman.com)
 
 /******************************************************
 ### Please contribute and add new features, and put them up for PR!  
@@ -17,7 +20,7 @@ A simple Flask/Redis demo, to showcase how to build a simple service/API from yo
 ## How to Run
 
 1. Create virtual environment
-   1. From terminal in root directory type `python -m venv ./venv`
+   1. From terminal in root directory type `python3 -m venv ./venv`
 2. Activate virtual environment `source venv/bin/activate`
 3. Install dependencies `pip install -r requirements.txt`
 4. Setup redis
