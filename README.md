@@ -33,8 +33,16 @@ A simple Flask/Redis demo, to showcase how to build a simple service/API from yo
 
 This will kick off a service running on http://127.0.0.1:5000
 
+## How to Contribute
 
-#### Current endpoints
+If you would like to add functionality here are some examples
+- Add new endpoints
+- Modify existing endpoints
+- Add new modules, that connect to different API's
+- Add new storage classes to keep the data saved or cached to reduce network calls
+
+
+## Endpoints
 
 - ### /hello
         returns 'Hello World!`
@@ -48,6 +56,16 @@ This will kick off a service running on http://127.0.0.1:5000
         saves 
         returns JSON for the given Rick & Morty character
 
+## Modules
+
+- Weather - connects to https://www.metaweather.com/api/
+- RickAndMorty - connects to https://rickandmortyapi.com
+  
+
+## Storage
+
+- SimpleDataStorage - Abstract class with ```set(key, value)``` & ```get(key)```
+- SimpleRedisStorage - Takes a host and port, and then uses ```set(key, value)``` & ```get(key)```
 
 ## Docker
 
