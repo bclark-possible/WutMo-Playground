@@ -9,7 +9,10 @@ class SimpleRedisStorage(SimpleDataStorage):
     connection = None
 
     def __init__(self, host, port):
+        print("Creating redis connection{0}:{1}".format(host,int(port)))
         self.connection = redis.Redis(host=host, port=port)
+        print("Pinging connection")
+        self.connection.ping()
 
     def set(self, key, value):
         if self.connection is not None:
