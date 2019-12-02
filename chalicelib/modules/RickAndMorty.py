@@ -1,4 +1,4 @@
-from modules.BasicRequest import BasicRequest
+from chalicelib.modules.BasicRequest import BasicRequest
 
 '''
 https://rickandmortyapi.com

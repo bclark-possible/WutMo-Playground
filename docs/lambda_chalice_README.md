@@ -40,3 +40,23 @@ Chalice will create a Lambda and API Gateway for you in AWS.
 1. Simply type ```chalice deploy```
 2. You will get your Lambda ARN & and a REST API URL for your API Gateway
 3. Test your paths with your new URL
+
+
+### Running locally with Redis
+
+1. Install redis ```brew install redis``` or from the [site](https://redis.io/topics/quickstart)
+2. Start redis ```redis-server```
+3. Uncomment the following methods in _app.py_ ```get_ram_get_character(character_id)``` & ```__save_character(character)```
+  1. Make sure to update the imports in the  _RickAndMorty_ module
+4. Make sure you have ```REDIS_URI = '127.0.0.1'```
+5. Start ```chalice local```
+5. Connect to http://127.0.0.1:8000/ram/get_character/23
+  1. This will make a call to the Rick and Morty service via the module
+  2. It will then save the Name and ID into your local redis server
+6. Verify by connecting to your local redis server, in a new terminal type ```redis-cli```
+7. Once connected, type ```get 'Arcade Alien'```, this should return "23"
+
+
+### Connecting your lambda to Elasticache (Redis)
+
+1. 

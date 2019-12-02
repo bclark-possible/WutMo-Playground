@@ -1,5 +1,5 @@
 import redis
-from storage.SimpleDataStorage import SimpleDataStorage
+from chalicelib.storage.SimpleDataStorage import SimpleDataStorage
 
 '''
 Data Storage via redis

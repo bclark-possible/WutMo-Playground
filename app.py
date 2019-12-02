@@ -6,12 +6,20 @@ https://github.com/public-apis/public-apis#development
 from chalice import Chalice, Response
 import html
 from chalicelib.modules.Weather import Weather
-# from modules.RickAndMorty import RickAndMorty
-# from storage.SimpleRedisStorage import SimpleRedisStorage
+from chalicelib.modules.RickAndMorty import RickAndMorty
+from chalicelib.storage.SimpleRedisStorage import SimpleRedisStorage
+
+REDIS_URI = '127.0.0.1'
+REDIS_PORT = '6379'
 
 # app = Flask(__name__)
 app = Chalice(app_name="wutmo-demo")
 app.debug = True
+
+def create_response(body, status_code = 200):
+    return Response(status_code=status_code,
+                    headers={'Content-Type': 'application/json'},
+                    body=body)
 
 @app.route('/')
 def index():
@@ -72,44 +80,48 @@ def weather(city):
 
 #     return {'error':'error getting character id'}
 
-# @app.route('/ram/get_character/<character_id>',methods=['GET'])
-# def get_ram_get_character(character_id):
-#     character = None
-#     try:
-#         ram = RickAndMorty()
-#         print(character_id,type(character_id))
-#         character_id = int(character_id)
-#         print(character_id,type(character_id))
-        
-#     except: 
-#         print('error getting character id')
 
-#     character = ram.get_a_character(character_id)
 
-#     if __save_character(character) is None:
-#             print('Error saving character')
-            
-#     if character is not None:
-#         return character
-
-#     return jsonify(error='error getting character id')
-
-# def __save_character(character):
-#     print("Saving Character")
+@app.route('/ram/get_character/{character_id}',methods=['GET'])
+def get_ram_get_character(character_id):
     
-#     try:
-#         c_id = character["id"]
-#         c_name = character["name"]
-#         storage = SimpleRedisStorage('redis-demo-001.evnvlh.0001.use1.cache.amazonaws.com','6379')
-#         return storage.set(c_name,c_id)
-#     except:
-#         print("Invalid character")
-#     return None
+    character = None
+    try:
+        ram = RickAndMorty()
+        print(character_id,type(character_id))
+        character_id = int(character_id)
+        print(character_id,type(character_id))
+        
+    except: 
+        print('error getting character id')
 
-# def __get_character_by_name(character_name):
-#     try:
-#         storage = SimpleRedisStorage('redis-demo-001.evnvlh.0001.use1.cache.amazonaws.com','6379')
-#         return storage.get(character_name)
-#     except:
-#         print("Error getting character by name")
-#     return {}
+    character = ram.get_a_character(character_id)
+
+    if __save_character(character) is None:
+            print('Error saving character')
+            
+    if character is not None:
+        return create_response(character)
+
+    error_response = {"error":'error getting character id',"character":character_id}
+    return create_response(error_response, 400)
+
+def __save_character(character):
+    print("Saving Character")
+    
+    try:
+        c_id = character["id"]
+        c_name = character["name"]
+        storage = SimpleRedisStorage(REDIS_URI,REDIS_PORT)
+        return storage.set(c_name,c_id)
+    except:
+        print("Invalid character")
+    return None
+
+def __get_character_by_name(character_name):
+    try:
+        storage = SimpleRedisStorage(REDIS_URI,REDIS_PORT)
+        return storage.get(character_name)
+    except:
+        print("Error getting character by name")
+    return {}
